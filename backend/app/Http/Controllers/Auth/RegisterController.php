@@ -67,7 +67,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $icon=request()->file('icon')->getClientOriginalName();
-        request()->file('icon')->storeAs('public/icon', $icon);
+        request()->file('icon')->storeAs('public/icons', $icon);
 
         return User::create([
             'name' => $data['name'],
