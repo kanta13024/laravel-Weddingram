@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    public function mypage()
+    {
+        $user = Auth::user();
+
+        return view('users.mypage', compact('user'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -63,7 +70,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $user = Auth::user();
+
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -75,7 +84,35 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user = Auth::user();
+
+        $icon=request()->file('icon')->getClientOriginalName();
+        request()->file('icon')->storeAs('public/icons', $icon);
+
+        $user->name = $request->input('name') ? $request->input('name') : $user->name;
+        $user->icon = $icon;
+        $user->email = $request->input('email') ? $request->input('email') : $user->email;
+        $user->update();
+
+        return redirect()->route('mypage');
+    }
+
+    public function edit_password()
+    {
+        return view('users.edit_password');
+    }
+
+    public function update_password(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->input('password') == $request->input('confirm_password')) {
+            $user->password = bcrypt($request->input('password'));
+            $user->update();
+        } else {
+            return redirect()->route('mypage.edit_password');
+        }
+        return redirect()->route('mypage');
     }
 
     /**

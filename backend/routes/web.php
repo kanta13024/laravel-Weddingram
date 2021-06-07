@@ -11,9 +11,18 @@
 |
 */
 
+use App\Models\User;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+// マイページ編集用
+Route::get('users/mypage', 'UserController@mypage')->name('mypage');
+Route::get('users/mypage/edit', 'UserController@edit')->name('mypage.edit');
+Route::put('users/mypage', 'UserController@update')->name('mypage.update');
+Route::get('users/mypage/password/edit', 'UserController@edit_password')->name('mypage.edit_password');
+Route::put('users/mypage/password', 'UserController@update_password')->name('mypage.update_password');
 
 //コメント用
 Route::post('posts/{post}/comments', 'CommentController@store');

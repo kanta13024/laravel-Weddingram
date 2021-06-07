@@ -14,10 +14,9 @@ class CommentController extends Controller
     /**
      * お気に入り機能
      */
-    public function favorite($comment, $post)
+    public function favorite(Post $post, Comment $comment)
     {
         $user = Auth::user();
-        dd($comment);
 
         if ($user->hasFavorited($comment)) {
             $user->unfavorite($comment);
