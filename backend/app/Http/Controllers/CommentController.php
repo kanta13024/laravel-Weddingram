@@ -4,29 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Post;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    use Favoriteable;
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * お気に入り機能
      */
-    public function index()
+    public function favorite($comment, $post)
     {
-        //
-    }
+        $user = Auth::user();
+        dd($comment);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if ($user->hasFavorited($comment)) {
+            $user->unfavorite($comment);
+        } else {
+            $user->favorite($comment);
+        }
+
+        return redirect()->route('posts.show', $post);
     }
 
     /**

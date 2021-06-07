@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
 
 class Comment extends Model
 {
+    use Favoriteable;
+
     public function post()
     {
         return $this->belongsTo('App\Post');
@@ -15,4 +18,5 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User');
     }
+
 }

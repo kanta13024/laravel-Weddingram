@@ -20,6 +20,8 @@ Route::post('posts/{post}/comments', 'CommentController@store');
 
 //いいね用
 Route::get('posts/{post}/favorite', 'PostController@favorite')->name('posts.favorite');
+Route::get('posts/{post}/comments/{comment}/favorite', 'CommentController@favorite')->name('comments.favorite');
+
 
 //マイページ用
 Route::resource('posts', 'postController');

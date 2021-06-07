@@ -1,8 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="row">
+    <div class="col-2">
+        @component('components.sidebar',  ['wedding_albums' => $wedding_albums, 'wedding_places' => $wedding_places ])
+        @endcomponent
+    </div>
+
     <div class="col-9">
+        <div class="container">
+            @if ($wedding_album !== null)
+                <a href="/">トップ</a> > <a href="#">{{ $wedding_album->place }}</a> > {{ $wedding_album->name }}
+                <h1>{{ $wedding_album->name }}のアルバム{{ $posts->count() }}枚</h1>
+
+                <form method="GET" action="{{ route('posts.index') }}" class="form-inline">
+                    <input type="hidden" name="wedding_album" value="{{ $wedding_album->id }}">
+                    並び替え
+                    <select name="sort" onChange="this.form.submit();" class="form-inline ml-2">
+                        @foreach ($sort as $key => $value)
+                            @if ($sorted = $value)
+                                <option value="{{ $value }}" selected>{{ $key }}</option>
+                            @else
+                                <option value="{{ $value }}">{{ $key }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </form>
+            @endif
+        </div>
         <div class="row w-100">
             @foreach ($posts as $post)
                 <div class="col-3">
@@ -18,6 +44,7 @@
             @endforeach
         </div>
     </div>
+    {{ $posts->links() }}
 </div>
 
 @endsection

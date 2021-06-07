@@ -16,11 +16,39 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $posts = Post::all();
-        $posts = Post::with('user')->get();
-        return view('posts.index', compact('posts'));
+        // ソート
+        $sort_query = [];
+        $sorted = "";
+
+        if ($request->sort !== null) {
+            $slices = explode(' ', $request->sort);
+            $sort_query[$slices[0]] = $slices[1];
+            $sorted = $request->sort;
+        }
+
+        // $request->wedding_album->id
+        if ($request->wedding_album !== null) {
+            $posts = Post::where('wedding_album_id', $request->wedding_album)->sortable($sort_query)->paginate(15);
+            $wedding_album = WeddingAlbum::find($request->wedding_album);
+        } else {
+            $posts = Post::sortable($sort_query)->paginate(15);
+            $wedding_album = null;
+        }
+
+        $sort = [
+            '並び替え' => '',
+            '新着順' => 'created_at desc',
+            '古い順' => 'created_at asc',
+            '撮影時期の降順' => 'shooting_time desc',
+            '撮影時期の昇順' => 'shooting_time asc',
+        ];
+
+        $wedding_albums = WeddingAlbum::all();
+        $wedding_places = WeddingAlbum::pluck('place')->unique();
+
+        return view('posts.index', compact('posts', 'wedding_album', 'wedding_albums', 'wedding_places', 'sort', 'sorted'));
     }
 
     public function favorite(Post $post)
