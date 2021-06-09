@@ -20,7 +20,7 @@ class Post extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function weddingalbum()
+    public function wedding_album()
     {
         return $this->belongsTo('App\WeddingAlbum');
     }

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Product;
+use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -19,47 +20,6 @@ class UserController extends Controller
         $user = Auth::user();
 
         return view('users.mypage', compact('user'));
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
     }
 
     /**
@@ -115,14 +75,27 @@ class UserController extends Controller
         return redirect()->route('mypage');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
+    public function favorite()
     {
-        //
+        $user = Auth::user();
+        $favorites = $user->favorites(Post::class)->with('user')->get();  //リレーションを生かした取り方
+
+        return view('users.favorite', compact('favorites'));
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->deleted_flag) {
+            $user->deleted_flag = false;
+        } else {
+            $user->deleted_flag = true;
+        }
+        $user->update();
+
+        Auth::logout();
+
+        return redirect('/');
     }
 }

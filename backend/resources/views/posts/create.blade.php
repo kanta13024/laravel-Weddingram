@@ -41,19 +41,3 @@
 </div>
 @endsection
 
-<h1>New Post!!</h1>
-
-<form action="/posts" method="POST" enctype="multipart/form-data">
-    {{ csrf_field() }}
-    <input type="file" name="image" class="form-control">
-    <textarea name="content" id="album_content" class="form-control"></textarea>
-    <input type="date" name="shooting_time" class="form-control">
-    <select name="wedding_album_id">
-        @foreach ($wedding_albums as $wedding_album)
-            <option value="{{ $wedding_album->id }}">{{ $wedding_album->name }}</option>
-        @endforeach
-    </select>
-    <button type="submit" class="form-control btn submit-button">PUT IN</button>
-</form>
-
-<a href="/posts">Back</a>
