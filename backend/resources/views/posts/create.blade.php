@@ -7,7 +7,7 @@
     <hr>
 
     <div class="d-flex justify-content-center">
-        <img src="{{ asset('storage/posts/dummy.png') }}" alt="" class="img-fluid w-25">
+        <img src="{{ asset('storage/posts/dummy.png') }}" id="post-image-preview" class="img-fluid w-25">
     </div>
 
     <hr>
@@ -17,7 +17,7 @@
         <div class="form-group">
             <small class="mb-3">思い出をシェア</small>
             <label for="post-image" class="btn submit-button">画像を選択</label>
-            <input type="file" for="post-image" name="image" id="post-image" onChange="handleImage(this.files)" style="display: none;">
+            <input type="file" name="image" id="post-image" onChange="handleImage(this.files)" style="display: none;">
         </div>
         <div class="form-group">
             <label for="post-content">テキスト</label>
@@ -39,5 +39,17 @@
     </form>
     <a href="/posts">マイページへ</a>
 </div>
+
+<script type="text/javascript">
+    function handleImage(image) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            let imagePreview = document.getElementById('post-image-preview');
+            imagePreview.src = reader.result;
+        }
+        console.log(image);
+        reader.readAsDataURL(image[0]);
+    }
+</script>
 @endsection
 

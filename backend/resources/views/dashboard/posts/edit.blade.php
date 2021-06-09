@@ -6,12 +6,16 @@
 
     <hr>
 
+    <div class="d-flex justify-content-center">
+        <img src="{{ asset('storage/posts/dummy.png') }}" id="post-image-preview" class="img-fluid w-25">
+    </div>
+
     <form method="POST" action="/dashboard/posts/{{ $post->id }}" class="md-5" enctype="multipart/form-data">
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="PUT">
         <div class="form-inline mt-4 mb-4 row">
-            <label for="post-image" class="col-2 d-flex justify-content-start">_image</label>
-            <input type="file" name="image" id="post-image" class="form-control col-8"  value="{{ $post->image }}">
+            <label for="post-image" class="btn submit-button"><i class="far fa-images"></i>Photo_update</label>
+            <input type="file" name="image" id="post-image" onChange="handleImage(this.files)" style="display: none;">
         </div>
         <div class="form-inline mt-4 mb-4 row">
             <label for="post-content" class="col-2 d-flex justify-content-start">Content</label>
@@ -42,4 +46,16 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    function handleImage(image) {
+        let reader = new FileReader();
+        reader.onload = function() {
+            let imagePreview = document.getElementById('post-image-preview');
+            imagePreview.src = reader.result;
+        }
+        console.log(image);
+        reader.readAsDataURL(image[0]);
+    }
+</script>
 @endsection
