@@ -46,6 +46,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
     Route::get('login', 'Dashboard\Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Dashboard\Auth\LoginController@login')->name('login');
 
+    //式場カラムの作成
+    Route::resource('places', 'Dashboard\PlaceController')->middleware('auth:admins');;
+
     //結婚アルバムの作成
     Route::resource('wedding_albums', 'Dashboard\WeddingAlbumController')->middleware('auth:admins');
 
@@ -54,4 +57,6 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
 
     //Userの管理
     Route::resource('users', 'Dashboard\UserController')->middleware('auth:admins');
+
+
 });

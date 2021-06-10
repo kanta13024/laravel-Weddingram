@@ -21,4 +21,9 @@ class WeddingAlbum extends Model
     {
         return $this->hasMany('APP\Post');
     }
+
+    public function place()
+    {
+        return $this->belongsTo('App\Place');
+    }
 }

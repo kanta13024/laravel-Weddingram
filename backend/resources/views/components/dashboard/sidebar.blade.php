@@ -2,6 +2,9 @@
     <h2>Album管理</h2>
     <div class="d-flex flex-column">
         <label class="sidebar-album-label">
+            <a href="/dashboard/places"><i class="fas fa-church"></i> Place一覧</a>
+        </label>
+        <label class="sidebar-album-label">
             <a href="/dashboard/wedding_albums"><i class="fas fa-book"></i> WeddingAlbum一覧</a>
         </label>
     </div>

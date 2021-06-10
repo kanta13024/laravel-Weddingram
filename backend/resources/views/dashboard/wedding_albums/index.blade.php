@@ -37,11 +37,15 @@
         {{ csrf_field() }}
         <div class="form-group">
             <label for="wedding_album-name">アルバム名（結婚式の名前）</label>
-            <input type="text" name="name" id="wedding_album_name" class="form-control" placeholder="Kenji&Kenji wedding">
+            <input type="text" name="name" id="wedding_album-name" class="form-control" placeholder="Kenji&Kenji wedding">
         </div>
         <div class="form-group">
             <label for="wedding_album-place">結婚式の場所</label>
-            <input type="text" name="place" class="form-control" placeholder="ロイヤルチェスター太田">
+            <select name="place_id" id="wedding_album-place_id" class="form-control">
+                @foreach ($places as $place)
+                    <option value="{{ $place->id }}">{{ $place->name }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="wedding_album-event_date">挙式日</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\WeddingAlbum;
+use App\Place;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,9 @@ class WeddingAlbumController extends Controller
             '撮影時期の昇順' => 'event_date asc',
         ];
 
-        return view('dashboard.wedding_albums.index', compact('wedding_albums', 'sort', 'sorted', 'total_count', 'keyword'));
+        $places = Place::all();
+
+        return view('dashboard.wedding_albums.index', compact('wedding_albums', 'sort', 'sorted', 'total_count', 'keyword', 'places'));
     }
 
     /**
@@ -66,7 +69,8 @@ class WeddingAlbumController extends Controller
         $wedding_albums = new WeddingAlbum();
         $wedding_albums->name = $request->input('name');
         $wedding_albums->event_date = $request->input('event_date');
-        $wedding_albums->place = $request->input('place');
+        $wedding_albums->place_id = $request->input('place_id');
+        $wedding_albums->place = Place::find($request->input('place_id'))->name;
         $wedding_albums->save();
 
         return redirect('/dashboard/wedding_albums');
@@ -91,7 +95,8 @@ class WeddingAlbumController extends Controller
      */
     public function edit(WeddingAlbum $wedding_album)
     {
-        return view('dashboard.wedding_albums.edit', compact('wedding_album'));
+        $places = Place::all();
+        return view('dashboard.wedding_albums.edit', compact('wedding_album', 'places'));
     }
 
     /**
@@ -105,7 +110,9 @@ class WeddingAlbumController extends Controller
     {
         $wedding_album->name = $request->input('name');
         $wedding_album->event_date = $request->input('event_date');
-        $wedding_album->place = $request->input('place');
+        $wedding_album->place_id = $request->input('place_id');
+        $wedding_album->place = Place::find($request->input('place_id'))->name;
+        $wedding_album->save();
 
         return redirect('/dashboard/wedding_albums');
     }

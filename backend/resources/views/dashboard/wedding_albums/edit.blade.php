@@ -17,7 +17,16 @@
         </div>
         <div class="form-group">
             <label for="wedding_album-place">結婚式の場所</label>
-            <input type="text" name="place" id="wedding_album-place" class="form-control" value="{{ $wedding_album->place }}">
+            {{-- <input type="text" name="place" id="wedding_album-place" class="form-control" value="{{ $wedding_album->place }}"> --}}
+            <select name="place_id" id="wedding_album-place" class="form-control col-8">
+                @foreach ($places as $place)
+                    @if ($place->id == $wedding_album->place_id)
+                        <option value="{{ $place->id }}" selected>{{ $place->name }}</option>
+                    @else
+                        <option value="{{ $place->id }}">{{ $place->name }}</option>
+                    @endif
+                @endforeach
+            </select>
         </div>
         <button type="submit" class="btn submit-button">Update</button>
     </form>

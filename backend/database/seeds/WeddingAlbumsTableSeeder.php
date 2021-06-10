@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\WeddingAlbum;
+use App\Place;
 use Carbon\Carbon;
 
 class WeddingAlbumsTableSeeder extends Seeder
@@ -13,9 +14,7 @@ class WeddingAlbumsTableSeeder extends Seeder
      */
     public function run()
     {
-        $places = [
-            'ラ・フォンテーヌ前橋', 'エテルナ高崎', 'ロイヤルチェスター太田',
-        ];
+        $places = Place::pluck('name', 'id');
 
         $names = [
             'Takuma&Miyuki', 'Nagato&Miyu', 'Takumi&Mimi',
@@ -27,7 +26,7 @@ class WeddingAlbumsTableSeeder extends Seeder
         $min = strtotime($start);
         $max = strtotime($end);
 
-        foreach ($places as $place) {
+        foreach ($places as $place_id => $place_name) {
             if ($place == 'ラ・フォンテーヌ前橋') {
                 foreach ($names as $name) {
                     $date = rand($min, $max);
@@ -35,7 +34,8 @@ class WeddingAlbumsTableSeeder extends Seeder
                     WeddingAlbum::create([
                         'name' => $name,
                         'event_date' => $date,
-                        'place' => $place
+                        'place' => $place_name,
+                        'place_id' => $place_id,
                     ]);
                 }
             }
@@ -49,7 +49,8 @@ class WeddingAlbumsTableSeeder extends Seeder
                     WeddingAlbum::create([
                         'name' => $name,
                         'event_date' => $date,
-                        'place' => $place
+                        'place' => $place_name,
+                        'place_id' => $place_id,
                     ]);
                 }
             }
@@ -63,7 +64,8 @@ class WeddingAlbumsTableSeeder extends Seeder
                     WeddingAlbum::create([
                         'name' => $name,
                         'event_date' => $date,
-                        'place' => $place
+                        'place' => $place_name,
+                        'place_id' => $place_id,
                     ]);
                 }
             }
