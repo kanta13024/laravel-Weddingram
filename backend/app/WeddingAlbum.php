@@ -26,4 +26,9 @@ class WeddingAlbum extends Model
     {
         return $this->belongsTo('App\Place');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User')->withTimestamps();
+    }
 }

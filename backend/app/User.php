@@ -59,4 +59,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\Comment');
     }
+
+    public function wedding_albums()
+    {
+        return $this->belongsToMany('App\WeddingAlbum')->withTimestamps();
+    }
 }

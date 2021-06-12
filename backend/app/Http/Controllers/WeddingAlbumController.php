@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers;
 
 use App\WeddingAlbum;
 use App\Place;
@@ -34,7 +34,8 @@ class WeddingAlbumController extends Controller
         } else {
             $keyword = "";
             $total_count = WeddingAlbum::count();
-            $wedding_albums = WeddingAlbum::sortable($sort_query)->paginate(15);
+            // $wedding_albums = WeddingAlbum::sortable($sort_query)->paginate(15);
+            $wedding_albums = User::find(Auth::id())->wedding_albums()->paginate(15);
         }
 
         $sort = [
@@ -47,7 +48,9 @@ class WeddingAlbumController extends Controller
 
         $places = Place::all();
 
-        return view('dashboard.wedding_albums.index', compact('wedding_albums', 'sort', 'sorted', 'total_count', 'keyword', 'places'));
+        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();  //中間テーブルを生かした取り方
+
+        return view('wedding_albums.index', compact('invited_wedding_albums', 'wedding_albums', 'sort', 'sorted', 'total_count', 'keyword', 'places'));
     }
 
     /**
@@ -72,12 +75,12 @@ class WeddingAlbumController extends Controller
         $wedding_albums->name = $request->input('name');
         $wedding_albums->event_date = $request->input('event_date');
         $wedding_albums->place_id = $request->input('place_id');
-        $wedding_albums->place = Place::find($request->input('place_id'))->name;
+        $wedding_albums->place = Place::find($request->input('place_id'))->name;  //リレーションを生かした保存
         $wedding_albums->save();
 
         $wedding_albums->users()->attach(Auth::id());
 
-        return redirect('/dashboard/wedding_albums');
+        return redirect('/wedding_albums');
     }
 
     /**
@@ -131,6 +134,6 @@ class WeddingAlbumController extends Controller
     {
         $wedding_album->delete();
 
-        return redirect('/dashboard/wedding_albums');
+        return redirect('/wedding_albums');
     }
 }

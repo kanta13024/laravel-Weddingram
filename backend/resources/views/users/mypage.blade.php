@@ -38,13 +38,13 @@
                     </div>
                     <div class="col-9 d-flex align-items-center ml-3 mt-3">
                         <div class="d-flex flex-column">
-                            <label for="user-name">結婚式の作成</label>
-                            <p>ご自身の結婚式の作成をします</p>
+                            <label for="user-name">Wedding_Albumの作成</label>
+                            <p>Albumを作ってみんなと写真をシェアしよう</p>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="{{ route('mypage.edit') }}">
+                    <a href="/wedding_albums">
                         <i class="fas fa-caret-right fa-3x"></i>
                     </a>
                 </div>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="{{ route('mypage.edit') }}">
+                    <a href="/wedding_albums">
                         <i class="fas fa-caret-right fa-3x"></i>
                     </a>
                 </div>

@@ -57,9 +57,11 @@
     <table class="table mt-5">
         <thead>
             <tr>
-                <th scope="col" class="w-25">ID</th>
+                <th scope="col" class="w-10">ID</th>
                 <th scope="col">場所</th>
                 <th scope="col">アルバム名</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -72,6 +74,11 @@
                     <td>
                         <a href="/dashboard/wedding_albums/{{ $wedding_album->id }}/edit">
                             <i class="far fa-edit"></i>編集
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/dashboard/wedding_albums/{{ $wedding_album->id }}/invite">
+                            <i class="fas fa-user-friends"></i>招待
                         </a>
                     </td>
                     <td>

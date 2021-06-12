@@ -33,7 +33,16 @@ Route::get('posts/{post}/comments/{comment}/favorite', 'CommentController@favori
 
 
 //マイページ用
-Route::resource('posts', 'postController');
+Route::resource('posts', 'PostController');
+
+//アルバム作成用
+Route::resource('wedding_albums', 'WeddingAlbumController');
+//アルバム招待用
+Route::get('wedding_albums/{wedding_album}/invite', 'InviteController@index')->name('invite.index');
+Route::post('wedding_albums/{wedding_album}/invite', 'InviteController@store')->name('invite');
+Route::get('wedding_albums/{wedding_album}/invite/edit', 'InviteController@');
+Route::get('wedding_albums/{wedding_album}/invite/update');
+Route::post('wedding_albums/{wedding_album}/invite/destroy', 'InviteController@destroy')->name('uninvite');;
 
 Auth::routes(['verify' => true]);
 
@@ -51,6 +60,12 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
 
     //結婚アルバムの作成
     Route::resource('wedding_albums', 'Dashboard\WeddingAlbumController')->middleware('auth:admins');
+    //アルバムへの招待
+    Route::get('wedding_albums/{wedding_album}/invite', 'Dashboard\InviteController@index')->middleware('auth:admins');
+    Route::post('wedding_albums{wedding_album}/invite', 'Dashboard\InviteController@store')->middleware('auth:admins');
+    Route::get('wedding_albums/{wedding_album}/invite/edit', 'Dashboard\InviteController@');
+    Route::get('wedding_albums/{wedding_album}/invite/update');
+    Route::post('wedding_albums/{wedding_album}/invite/destroy');
 
     //アルバムの写真の管理
     Route::resource('posts', 'Dashboard\PostController')->middleware('auth:admins');

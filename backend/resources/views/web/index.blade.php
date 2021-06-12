@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-2">
-        @component('components.sidebar',  ['wedding_albums' => $wedding_albums, 'wedding_places' => $wedding_places ])
+        @component('components.sidebar',  ['invited_wedding_albums' => $invited_wedding_albums ])
         @endcomponent
     </div>
     <div class="col-9">

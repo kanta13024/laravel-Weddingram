@@ -28,7 +28,6 @@ class PostController extends Controller
             $sorted = $request->sort;
         }
 
-        // $request->wedding_album->id
         if ($request->wedding_album !== null) {
             $posts = Post::where('wedding_album_id', $request->wedding_album)->sortable($sort_query)->paginate(15);
             $wedding_album = WeddingAlbum::find($request->wedding_album);
@@ -46,9 +45,10 @@ class PostController extends Controller
         ];
 
         $wedding_albums = WeddingAlbum::all();
+        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();
         $wedding_places = WeddingAlbum::pluck('place')->unique();
 
-        return view('posts.index', compact('posts', 'wedding_album', 'wedding_albums', 'wedding_places', 'sort', 'sorted'));
+        return view('posts.index', compact('invited_wedding_albums', 'posts', 'wedding_album', 'wedding_albums', 'wedding_places', 'sort', 'sorted'));
     }
 
     public function favorite(Post $post)
@@ -71,8 +71,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $wedding_albums = WeddingAlbum::all();
-        return view('posts.create', compact('wedding_albums'));
+        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();
+        return view('posts.create', compact('invited_wedding_albums'));
     }
 
     /**

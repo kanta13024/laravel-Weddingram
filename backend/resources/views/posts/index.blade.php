@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-2">
-        @component('components.sidebar',  ['wedding_albums' => $wedding_albums, 'wedding_places' => $wedding_places ])
+        @component('components.sidebar',  ['invited_wedding_albums' => $invited_wedding_albums ])
         @endcomponent
     </div>
 
@@ -19,7 +19,7 @@
                     並び替え
                     <select name="sort" onChange="this.form.submit();" class="form-inline ml-2">
                         @foreach ($sort as $key => $value)
-                            @if ($sorted = $value)
+                            @if ($sorted == $value)
                                 <option value="{{ $value }}" selected>{{ $key }}</option>
                             @else
                                 <option value="{{ $value }}">{{ $key }}</option>
@@ -43,13 +43,22 @@
                 </div>
             @endforeach
         </div>
+        <div class="d-flex justify-content-between">
+            <div class="">
+                {{ $posts->links() }}
+            </div>
+
+            <a href="{{ route('posts.create') }}" class="btn submit-button"><i class="far fa-images"></i>New</a>
+        </div>
+
+
     </div>
-    {{ $posts->links() }}
+
 </div>
 
 @endsection
 
-@foreach ($posts as $post)
+{{-- @foreach ($posts as $post)
     {{ $post->image }}
     {{ $post->content }}
     {{ $post->shotting_time }}
@@ -62,4 +71,4 @@
     </form>
 @endforeach
 
-<a href="{{ route('posts.create') }}">New</a>
+<a href="{{ route('posts.create') }}">New</a> --}}

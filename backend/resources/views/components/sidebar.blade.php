@@ -1,14 +1,18 @@
 <div class="container">
-    @foreach ($wedding_places as $wedding_place)
-        <h5>{{ $wedding_place }}</h5>
+    @auth
+        <a href="{{ route('posts.index') }}"><h4><i class="far fa-images"></i>Photo一覧</h5></a>
+    @endauth
+
+
+
+    @foreach ($invited_wedding_albums as $invited_wedding_album)
         @auth
-            @foreach ($wedding_albums as $wedding_album)
-                @if ($wedding_album->place == $wedding_place)
-                    <label class="sidebar-category">
-                        <a href="{{ route('posts.index', ['wedding_album' => $wedding_album->id ]) }}">{{ $wedding_album->name }}</a>
-                    </label>
-                @endif
-            @endforeach
+            <h5><i class="fas fa-church"></i>{{ $invited_wedding_album->place }}</h5>
+            <label for="sidebar-local">
+                <a href="{{ route('posts.index', ['wedding_album' => $invited_wedding_album->id]) }}">
+                    {{ $invited_wedding_album->name }}
+                </a>
+            </label>
         @endauth
     @endforeach
 </div>
