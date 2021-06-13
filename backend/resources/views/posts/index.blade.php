@@ -30,17 +30,20 @@
             @endif
         </div>
         <div class="row w-100">
-            @foreach ($posts as $post)
-                <div class="col-3">
-                    <a href="{{ route('posts.show', $post) }}">
-                        <img src="{{ asset('storage/posts/' . $post->image ) }}" class="img-thumbnail">
-                    </a>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="post-label mt-2">{{ $post->user->name }}</p>
+            @foreach ($invited_wedding_albums as $invited_wedding_album)
+                @foreach ($invited_wedding_album->posts as $post)
+                    <div class="col-3">
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            <img src="{{ asset('storage/posts/' . $post->image ) }}" class="img-thumbnail">
+                        </a>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="post-label mt-2">{{ $post->user->name }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
+
             @endforeach
         </div>
         <div class="d-flex justify-content-between">

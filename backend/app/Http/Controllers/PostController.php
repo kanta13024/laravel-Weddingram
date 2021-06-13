@@ -45,7 +45,7 @@ class PostController extends Controller
         ];
 
         $wedding_albums = WeddingAlbum::all();
-        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();
+        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->with('posts')->get();
         $wedding_places = WeddingAlbum::pluck('place')->unique();
 
         return view('posts.index', compact('invited_wedding_albums', 'posts', 'wedding_album', 'wedding_albums', 'wedding_places', 'sort', 'sorted'));
@@ -120,8 +120,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $user = User::find($post->user_id)->first();
+        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();
         $wedding_albums = WeddingAlbum::all();
-        return view('posts.edit', compact('post', 'wedding_albums'));
+        return view('posts.edit', compact('invited_wedding_albums', 'post', 'wedding_albums'));
     }
 
     /**

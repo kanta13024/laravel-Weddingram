@@ -9,15 +9,15 @@
         <div class="col">
             <div class="d-flex flex-column">
                 <h1 class="">
-                    {{ $user->name }}
+                    <i class="fas fa-user"></i> {{ $post->user->name }}
                 </h1>
                 <hr>
-                <p class="">
-                    {{ $post->content }}
+                <p class="h5">
+                    <i class="fas fa-comment"></i> {{ $post->content }}
                 </p>
                 <hr>
                 <p>
-                    {{ $post->shooting_time }}
+                    <i class="far fa-clock"></i> {{ $post->shooting_time }}
                 </p>
                 <hr>
             </div>
@@ -27,11 +27,11 @@
                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <input type="hidden" name="user_id" value="{{ $user->id }}">
                     <div class="form-group row">
-                        <div class="col-7">
+                        <div class="col-2">
                             <div class="btn submit-button w-100">
                                 <i class="fas fa-backspace"></i>
                                 <a href="/posts/" class="text-white">
-                                    戻る
+                                    Back
                                 </a>
                             </div>
                         </div>
@@ -39,15 +39,20 @@
                             @if ($post->isFavoritedBy(Auth::user()))
                                 <a href="/posts/{{ $post->id }}/favorite" class="btn favorite-button text-favorite w-100">
                                     <i class="fa fa-heart"></i>
-                                    お気に入り解除
+                                    Unfavorite..
                                 </a>
                             @else
                                 <a href="/posts/{{ $post->id }}/favorite" class="btn favorite-button text-favorite w-100">
                                     <i class="fa fa-heart"></i>
-                                    お気に入り
+                                    Favorite!
                                 </a>
                             @endif
                         </div>
+                        @if ($post->user_id == Auth::id())
+                            <div class="col-5">
+                                <a href="/posts/{{ $post->id }}/edit" class=" btn btn-secondary"><i class="far fa-edit"></i>Edit</a>
+                            </div>
+                        @endif
                     </div>
                 </form>
             @endauth
@@ -65,8 +70,8 @@
                         <img src="{{ asset('storage/icons/' . $comment->user->icon) }}" alt=" " class="w-50 img-fuild">
                     </div>
                     <div class="col">
-                        <p class="h3">{{ $comment->user->name }}</p>
-                        <p class="h3">{{ $comment->content }}</p>
+                        <p class="h3"><i class="fas fa-user"></i> {{ $comment->user->name }}</p>
+                        <p class="h3"><i class="fas fa-comment"></i> {{ $comment->content }}</p>
                         <label for="comment_created_time">{{ $comment->created_at }}</label>
                         @if ($comment->isFavoritedBy(Auth::user()))
                         <a href="{{ route('comments.favorite', ['post'=> $post->id, 'comment'=>$comment->id]) }}" class="btn favorite-button text-favorite w-100">
@@ -104,9 +109,3 @@
     </div>
 </div>
 @endsection
-
-
-{{-- <img src="{{ asset('storage/posts/' . $post->image) }}" alt="" class="img-thumbnail">
-{{ $post->content }}
-{{ $post->shooting_time }}
-{{ $user->name }} --}}

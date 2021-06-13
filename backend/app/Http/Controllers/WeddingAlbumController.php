@@ -18,49 +18,41 @@ class WeddingAlbumController extends Controller
      */
     public function index(Request $request)
     {
-        $sort_query = [];
-        $sorted = "";
+        // $sort_query = [];
+        // $sorted = "";
 
-        if ($request->sort !==  null) {
-            $slices = explode(' ', $request->sort);
-            $sort_query[$slices[0]] = $slices[1];
-            $sorted = $request->sort;
-        }
+        // if ($request->sort !==  null) {
+        //     $slices = explode(' ', $request->sort);
+        //     $sort_query[$slices[0]] = $slices[1];
+        //     $sorted = $request->sort;
+        // }
 
-        if ($request->keyword !== null) {
-            $keyword = rtrim($request->keyword);
-            $total_count = WeddingAlbum::where('name', 'like', "%{$keyword}%")->orwhere('id', "{%$keyword%}")->orwhere('place', "%{$keyword}%")->count();
-            $wedding_albums = WeddingAlbum::where('name', 'like', "%{$keyword}%")->orwhere('id', "{%$keyword%}")->orwhere('place', 'like', "%{$keyword}%")->sortable($sort_query)->paginate(15);
-        } else {
-            $keyword = "";
-            $total_count = WeddingAlbum::count();
-            // $wedding_albums = WeddingAlbum::sortable($sort_query)->paginate(15);
-            $wedding_albums = User::find(Auth::id())->wedding_albums()->paginate(15);
-        }
+        // if ($request->keyword !== null) {
+        //     $keyword = rtrim($request->keyword);
+        //     $total_count = WeddingAlbum::where('name', 'like', "%{$keyword}%")->orwhere('id', "{%$keyword%}")->orwhere('place', "%{$keyword}%")->count();
+        //     $wedding_albums = WeddingAlbum::where('name', 'like', "%{$keyword}%")->orwhere('id', "{%$keyword%}")->orwhere('place', 'like', "%{$keyword}%")->sortable($sort_query)->paginate(15);
+        // } else {
+        //     $keyword = "";
+        //     // $total_count = WeddingAlbum::count();
+        //     $total_count = User::find(Auth::id())->wedding_albums()->count();
+        //     // $wedding_albums = WeddingAlbum::sortable($sort_query)->paginate(15);
+        //     $wedding_albums = User::find(Auth::id())->wedding_albums()->paginate(15);
+        // }
 
-        $sort = [
-            '並び替え' => '',
-            '新着順' => 'created_at desc',
-            '古い順' => 'created_at asc',
-            '撮影時期の降順' => 'event_date desc',
-            '撮影時期の昇順' => 'event_date asc',
-        ];
+        // $sort = [
+        //     '並び替え' => '',
+        //     '新着順' => 'created_at desc',
+        //     '古い順' => 'created_at asc',
+        //     '撮影時期の降順' => 'event_date desc',
+        //     '撮影時期の昇順' => 'event_date asc',
+        // ];
 
         $places = Place::all();
 
         $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();  //中間テーブルを生かした取り方
 
-        return view('wedding_albums.index', compact('invited_wedding_albums', 'wedding_albums', 'sort', 'sorted', 'total_count', 'keyword', 'places'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('wedding_albums.index', compact('invited_wedding_albums',  'places'));
     }
 
     /**
@@ -84,17 +76,6 @@ class WeddingAlbumController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -103,7 +84,8 @@ class WeddingAlbumController extends Controller
     public function edit(WeddingAlbum $wedding_album)
     {
         $places = Place::all();
-        return view('dashboard.wedding_albums.edit', compact('wedding_album', 'places'));
+        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();
+        return view('wedding_albums.edit', compact('invited_wedding_albums', 'wedding_album', 'places'));
     }
 
     /**
@@ -121,7 +103,7 @@ class WeddingAlbumController extends Controller
         $wedding_album->place = Place::find($request->input('place_id'))->name;
         $wedding_album->save();
 
-        return redirect('/dashboard/wedding_albums');
+        return redirect('/wedding_albums');
     }
 
     /**

@@ -33,7 +33,7 @@
                 @if ($user->wedding_albums()->where('wedding_album_id', $wedding_album->id)->exists())
                     <div class="d-flex flex-row">
                         <div class="col-4">
-                            <img src="{{ asset('storage/icons/'.$user->icon) }}" alt="" class="img-thumbnail">
+                            <img src="{{ asset('storage/icons/'.$user->icon) }}" class="img-thumbnail">
                         </div>
                         <div class="col d-flex-column">
                             <h3>{{ $user->name }}</h3>
@@ -81,7 +81,7 @@
                 @endif
             @endforeach
 
-            <h2>{{ $wedding_album->name }}の招待者一覧</h2>
+            <h2><i class="fas fa-book-reader"></i> {{ $wedding_album->name }}の招待者一覧</h2>
 
             <hr>
 

@@ -80,8 +80,9 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $favorites = $user->favorites(Post::class)->with('user')->get();  //リレーションを生かした取り方
+        $invited_wedding_albums = User::find(Auth::user()->id)->wedding_albums()->get();
 
-        return view('users.favorite', compact('favorites'));
+        return view('users.favorite', compact('favorites', 'invited_wedding_albums'));
     }
 
     public function destroy(Request $request)

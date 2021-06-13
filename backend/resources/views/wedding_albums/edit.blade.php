@@ -9,29 +9,34 @@
     <div class="col-9">
         <div class="w-75">
 
-            <h1>WeddingAlbumの作成</h1>
+            <h1><i class="fas fa-book-reader"></i>Wedding_Album Update!</h1>
 
             <hr>
 
-            <form method="POST" action="/wedding_albums">
+            <form method="POST" action="/wedding_albums/{{ $wedding_album->id }}">
                 {{ csrf_field() }}
+                <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
                     <label for="wedding_album-name">アルバム名（結婚式の名前）</label>
-                    <input type="text" name="name" id="wedding_album-name" class="form-control" placeholder="Kenji&Kenji wedding">
+                    <input type="text" name="name" id="wedding_album-name" class="form-control" value="{{ $wedding_album->name }}">
                 </div>
                 <div class="form-group">
                     <label for="wedding_album-place">結婚式の場所</label>
                     <select name="place_id" id="wedding_album-place_id" class="form-control">
                         @foreach ($places as $place)
-                            <option value="{{ $place->id }}">{{ $place->name }}</option>
+                            @if ($place->id == $wedding_album->place_id)
+                                <option value="{{ $place->id }}" selected>{{ $place->name }}</option>
+                            @else
+                                <option value="{{ $place->id }}">{{ $place->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="wedding_album-event_date">挙式日</label>
-                    <input type="date" name="event_date" class="form-control">
+                    <input type="date" name="event_date" class="form-control" value="{{ $wedding_album->event_date }}">
                 </div>
-                <button type="submit" class="btn submit-button">＋新規作成</button>
+                <button type="submit" class="btn submit-button"><i class="far fa-edit"></i>Update!</button>
             </form>
 
             <hr>
