@@ -11,15 +11,15 @@
         {{ csrf_field() }}
         <div class="form-group">
             <label for="place-name">Place_Name</label>
-            <input type="text" name="name" id="place-name" class="form-control">
+            <input type="text" name="name" id="place-name" class="form-control" required="required">
         </div>
         <div class="form-group">
             <label for="place-address">Address</label>
-            <input type="text" name="address" id="place-address" class="form-control">
+            <input type="text" name="address" id="place-address" class="form-control" required="required">
         </div>
         <div class="form-group">
             <label for="place-description">Description</label>
-            <textarea name="description" id="place-description" class="form-control"></textarea>
+            <textarea name="description" id="place-description" class="form-control" required="required"></textarea>
         </div>
          <button type="submit" class="btn submit-button"><i class="fas fa-church"></i>新規作成</button>
     </form>

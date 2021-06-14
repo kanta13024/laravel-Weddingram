@@ -64,34 +64,34 @@
         </div>
 
         <div class="offset-1 col-10">
-            <div class="row">
-                @foreach ($comments as $comment)
-                    <div class="col-5 offset-1">
-                        <img src="{{ asset('storage/icons/' . $comment->user->icon) }}" alt=" " class="w-50 img-fuild">
-                    </div>
-                    <div class="col">
-                        <p class="h3"><i class="fas fa-user"></i> {{ $comment->user->name }}</p>
-                        <p class="h3"><i class="fas fa-comment"></i> {{ $comment->content }}</p>
-                        <label for="comment_created_time">{{ $comment->created_at }}</label>
-                        @if ($comment->isFavoritedBy(Auth::user()))
-                        <a href="{{ route('comments.favorite', ['post'=> $post->id, 'comment'=>$comment->id]) }}" class="btn favorite-button text-favorite w-100">
-                            <i class="fa fa-heart"></i>
-                            お気に入り解除
-                        </a>
-
-                        @else
-                            <a href="/posts/{{ $post->id }}/comments/{{ $comment->id }}/favorite" class="btn favorite-button text-favorite w-100">
-                                <i class="fa fa-heart"></i>
-                            お気に入り
-                            </a>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
-
-            <hr>
-
             @auth
+                <div class="row">
+                    @foreach ($comments as $comment)
+                        <div class="col-5 offset-1">
+                            <img src="{{ asset('storage/icons/' . $comment->user->icon) }}" alt=" " class="w-50 img-fuild">
+                        </div>
+                        <div class="col">
+                            <p class="h3"><i class="fas fa-user"></i> {{ $comment->user->name }}</p>
+                            <p class="h3"><i class="fas fa-comment"></i> {{ $comment->content }}</p>
+                            <label for="comment_created_time">{{ $comment->created_at }}</label>
+                            @if ($comment->isFavoritedBy(Auth::user()))
+                                <a href="{{ route('comments.favorite', ['post'=> $post->id, 'comment'=>$comment->id]) }}" class="btn favorite-button text-favorite w-100">
+                                <i class="fa fa-heart"></i>
+                                    お気に入り解除
+                                </a>
+
+                            @else
+                                <a href="/posts/{{ $post->id }}/comments/{{ $comment->id }}/favorite" class="btn favorite-button text-favorite w-100">
+                                    <i class="fa fa-heart"></i>
+                                お気に入り
+                                </a>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+
+                <hr>
+
                 <div class="row">
                     <div class="col-5 offset-1">
                         <img src="{{ asset('storage/icons/' . $user->icon) }}" alt=" " class="w-50 img-fuild img-rounded">
@@ -99,9 +99,18 @@
                     <div class="col">
                         <form method="POST" action="/posts/{{ $post->id }}/comments">
                             {{ csrf_field() }}
-                            <textarea name="content" class="form-control m-2" ></textarea>
+                            <textarea name="content" class="form-control m-2" required="required"></textarea>
                             <button type="submit" class="btn submit-button ml-2">コメントする</button>
                         </form>
+                    </div>
+                </div>
+
+            @else
+                <div class="row">
+                    <div class="col">
+                        <a href="{{ route('login') }}">
+                            <h2><i class="fas fa-backspace"></i>ログイン後、コメントや投稿機能が使用できます！</h2>
+                        </a>
                     </div>
                 </div>
             @endauth

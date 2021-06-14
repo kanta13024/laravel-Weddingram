@@ -27,24 +27,40 @@
                         @endforeach
                     </select>
                 </form>
-            @endif
-        </div>
-        <div class="row w-100">
-            @foreach ($invited_wedding_albums as $invited_wedding_album)
-                @foreach ($invited_wedding_album->posts as $post)
-                    <div class="col-3">
-                        <a href="{{ route('posts.show', $post->id) }}">
-                            <img src="{{ asset('storage/posts/' . $post->image ) }}" class="img-thumbnail">
-                        </a>
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="post-label mt-2">{{ $post->user->name }}</p>
+
+                <div class="row">
+                    @foreach ($posts as $post)
+                        <div class="col-3">
+                            <a href="{{ route('posts.show', $post->id) }}">
+                                <img src="{{ asset('storage/posts/'.$post->image) }}" alt="" class="img-thumbnail">
+                            </a>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="post-label mt-2">{{ $post->user->name }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
+            @else
+                <div class="row w-100">
+                    @foreach ($invited_wedding_albums as $invited_wedding_album)
+                        @foreach ($invited_wedding_album->posts as $post)
+                            <div class="col-3">
+                                <a href="{{ route('posts.show', $post->id) }}">
+                                    <img src="{{ asset('storage/posts/' . $post->image ) }}" class="img-thumbnail">
+                                </a>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="post-label mt-2">{{ $post->user->name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
 
-            @endforeach
+                    @endforeach
+                </div>
+            @endif
         </div>
         <div class="d-flex justify-content-between">
             <div class="">
@@ -53,10 +69,7 @@
 
             <a href="{{ route('posts.create') }}" class="btn submit-button"><i class="far fa-images"></i>New</a>
         </div>
-
-
     </div>
-
 </div>
 
 @endsection

@@ -90,6 +90,11 @@ class PostController extends Controller
         $post->shooting_time = $request->input('shooting_time');
         $post->user_id = Auth::user()->id;
         $post->wedding_album_id = $request->input('wedding_album_id');
+        if ($request->input('release_flag') == 'on') {
+            $post->release_flag = true;
+        } else {
+            $post->release_flag = false;
+        }
         $post->save();
 
         return redirect()->route('posts.show', ['post' => $post->id]);
@@ -139,6 +144,12 @@ class PostController extends Controller
         $post->shooting_time = $request->input('shooting_time');
         $post->content = $request->input('content');
         $post->wedding_album_id = $request->input('wedding_album_id');
+        if ($request->input('release_flag') == 'on') {
+            $post->release_flag = true;
+        } else {
+            $post->release_flag = false;
+        }
+
         $post->save();
 
         return redirect()->route('posts.show', ['post' => $post->id]);

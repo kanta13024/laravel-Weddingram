@@ -17,19 +17,19 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="wedding_album-name">アルバム名（結婚式の名前）</label>
-                    <input type="text" name="name" id="wedding_album-name" class="form-control" placeholder="Kenji&Kenji wedding">
+                    <input type="text" name="name" id="wedding_album-name" class="form-control" placeholder="Kenji&Kenji wedding" required="required">
                 </div>
                 <div class="form-group">
                     <label for="wedding_album-place">結婚式の場所</label>
                     <select name="place_id" id="wedding_album-place_id" class="form-control">
                         @foreach ($places as $place)
-                            <option value="{{ $place->id }}">{{ $place->name }}</option>
+                            <option value="{{ $place->id }}" required="required">{{ $place->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="wedding_album-event_date">挙式日</label>
-                    <input type="date" name="event_date" class="form-control">
+                    <input type="date" name="event_date" class="form-control" required="required">
                 </div>
                 <button type="submit" class="btn submit-button">＋新規作成</button>
             </form>
@@ -61,9 +61,12 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="/wedding_albums/{{ $wedding_album->id }}/invite">
-                                    <i class="fas fa-user-friends"></i>招待
-                                </a>
+                                @if ($wedding_album->pivot->user_id == Auth::user()->id)
+                                    <a href="/wedding_albums/{{ $wedding_album->id }}/invite">
+                                        <i class="fas fa-user-friends"></i>招待
+                                    </a>
+                                @endif
+
                             </td>
                             <td>
                                 <a href="/wedding_albums/{{ $wedding_album->id }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dashboard-delete-link">

@@ -9,97 +9,24 @@
     <div class="col-9">
         <h1>Recommend</h1>
         <div class="row">
-            <div class="col-4">
-                <a href="#">
-                    <img src="{{ asset('storage/posts/sample.jpg') }}" alt="" class="img-thumbnail">
-                </a>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="post-label mt-2">
-                            場所場所場所<br>
-                            <label>時期直々</label>
-                        </p>
-                    </div>
+            @foreach ($random_release_posts as $random_release_post)
+                <div class="col-4">
+                    <a href="/posts/{{ $random_release_post->id }}">
+                        <img src="{{ asset('storage/posts/'.$random_release_post->image) }}" class="img-thumbnail">
+                    </a>
                 </div>
-            </div>
-            <div class="col-4">
-                <a href="#">
-                    <img src="{{ asset('storage/posts/sample.jpg') }}" alt="" class="img-thumbnail">
-                </a>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="post-label mt-2">
-                            場所場所ばしょ<br>
-                            <label>直々直々</label>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <a href="#">
-                    <img src="{{ asset('storage/posts/sample.jpg') }}" alt="" class="img-thumbnail">
-                </a>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="post-label mt-2">
-                            場所場所場所<br>
-                            <label>じきじき</label>
-                        </p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <h1>New</h1>
         <div class="row">
-            <div class="col-3">
-                <a href="#">
-                    <img src="{{ asset('storage/posts/sample.jpg') }}" alt="" class="img-thumbnail">
-                </a>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="product-label mt-2">
-                            placeplaceplace
-                        </p>
-                    </div>
+            @foreach ($latest_release_posts as $latest_release_post)
+                <div class="col-3">
+                    <a href="/posts/{{ $latest_release_post->id }}">
+                        <img src="{{ asset('storage/posts/'.$latest_release_post->image) }}" alt="" class="img-thumbnail">
+                    </a>
                 </div>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <img src="{{ asset('storage/posts/sample.jpg') }}" alt="" class="img-thumbnail">
-                </a>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="product-label mt-2">
-                            placeplaceplace
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <img src="{{ asset('storage/posts/sample.jpg') }}" alt="" class="img-thumbnail">
-                </a>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="product-label mt-2">
-                            placeplaceplace
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <a href="#">
-                    <img src="{{ asset('storage/posts/sample.jpg') }}" alt="" class="img-thumbnail">
-                </a>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="product-label mt-2">
-                            placeplaceplace
-                        </p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

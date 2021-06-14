@@ -22,6 +22,10 @@ class WebController extends Controller
             $invited_wedding_albums = WeddingAlbum::all();
         }
 
-        return view('web.index', compact('invited_wedding_albums', 'wedding_albums', 'wedding_places'));
+        $random_release_posts = Post::where('release_flag', true)->inRandomOrder()->take(3)->get();
+        $latest_release_posts = Post::where('release_flag', true)->orderBy('created_at', 'desc')->take(8)->get();
+        $release_posts = Post::where('release_flag', true)->get();
+
+        return view('web.index', compact('latest_release_posts', 'random_release_posts', 'release_posts', 'invited_wedding_albums', 'wedding_albums', 'wedding_places'));
     }
 }

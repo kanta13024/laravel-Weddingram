@@ -34,7 +34,10 @@
                     <th scope="row">{{ $user->id }}</th>
                     <td><img src="{{ asset('storage/icons/'.$user->icon) }}" class="img-thumbnail"></td>
                     <th>{{ $user->name }}</th>
-                    <th>{{ $user->email }}</th>
+                    <th>
+                        {{ $user->email }}<br>
+                        {{ $user->created_at }}
+                    </th>
                     <th>
                         @if ($user->deleted_flag)
                             <form action="/dashboard/users/{{ $user->id }}" method="POST">
@@ -53,6 +56,11 @@
                                 </button>
                             </form>
                         @endif
+                    </th>
+                    <th>
+                        <a href="/dashboard/users/{{ $user->id }}" class="btn">
+                            <i class="fas fa-book-open"></i> Show!!
+                        </a>
                     </th>
                 </tr>
             @endforeach

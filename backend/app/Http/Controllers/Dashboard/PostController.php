@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Post;
 use App\WeddingAlbum;
+use App\User;
 use App\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -56,8 +57,9 @@ class PostController extends Controller
     public function create()
     {
         $wedding_albums = WeddingAlbum::all();
+        $users = User::all();
 
-        return view ('dashboard.posts.create', compact('wedding_albums'));
+        return view ('dashboard.posts.create', compact('wedding_albums', 'users'));
     }
 
     /**
@@ -117,8 +119,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('dashboard.posts.index');
     }
 }

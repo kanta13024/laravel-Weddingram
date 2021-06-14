@@ -30,7 +30,7 @@
                     <a class="nav-link" href="{{ route('login') }}"><i class="far fa-heart"></i></a>
                 </li>
                 <li class="nav-item mr-5">
-                    <a class="nav-link" href="{{ route('logout') }}"><i class="fas fa-camera"></i></a>
+                    <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-camera"></i></a>
                 </li>
             @else
                 <li class="nav-item dropdown mr-5">
@@ -56,6 +56,11 @@
                 <li class="nav-item mr-5">
                     <a href="{{ route('mypage.favorite') }}" class="nav-link">
                         <i class="far fa-heart"></i>
+                    </a>
+                </li>
+                <li class="nav-item mr-5">
+                    <a href="{{ route('posts.create') }}" class="nav-link">
+                        <i class="fas fa-camera"></i>
                     </a>
                 </li>
             @endguest

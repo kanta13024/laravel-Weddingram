@@ -36,7 +36,7 @@
                     <div class="col-2 d-flex align-items-center">
                         <i class="fas fa-rainbow fa-3x"></i>
                     </div>
-                    <div class="col-9 d-flex align-items-center ml-3 mt-3">
+                    <div class="col-9 d-flex align-items-center">
                         <div class="d-flex flex-column">
                             <label for="user-name">Wedding_Albumの作成</label>
                             <p>Albumを作ってみんなと写真をシェアしよう</p>
@@ -57,17 +57,17 @@
             <div class="d-flex justify-content-between">
                 <div class="row">
                     <div class="col-2 d-flex align-items-center">
-                        <i class="fas fa-user-friends fa-3x"></i>
+                        <i class="fas fa-comments fa-3x"></i>
                     </div>
                     <div class="col-9 d-flex align-items-center ml-3 mt-3">
                         <div class="d-flex flex-column">
-                            <label for="user-name">結婚式のご招待</label>
-                            <p>ご自身の結婚式のアルバムに参加してもらう方をご招待します</p>
+                            <label for="user-name"><i class="far fa-heart"></i>お気に入り一覧</label>
+                            <p><i class="fas fa-thumbs-up"></i>いいねの確認</p>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="/wedding_albums">
+                    <a href="/users/mypage/favorite">
                         <i class="fas fa-caret-right fa-3x"></i>
                     </a>
                 </div>

@@ -63,13 +63,7 @@
                         </a>
                     </td>
                     <td>
-                        {{-- <a href="/dashboard/posts/{{ $post->id }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dashboard-delete-link">
-                            <i class="fas fa-trash"></i>削除
-                        </a>
-                        <form id="logout-form" action="/dashboard/posts/{{ $post->id }}" method="POST" style="display: none;">
-                            <input type="hidden" name="_method" value="DELETE">
-                        </form> --}}
-                        <form action="/posts/{{ $post->id }}" method="POST" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+                        <form action="/dashboard/posts/{{ $post->id }}" method="POST" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                             <div class="d-flex justify-content-end mt-3">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

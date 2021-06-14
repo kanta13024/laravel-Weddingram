@@ -29,11 +29,11 @@
                 </div>
                 <div class="form-group">
                     <label for="post-content">テキスト</label>
-                    <textarea name="content" id="post-content" class="form-control"></textarea>
+                    <textarea name="content" id="post-content" class="form-control">{{ $post->content }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="post-shooting_time">撮影の時期</label>
-                    <input type="date" name="shooting_time" class="form-control">
+                    <input type="date" name="shooting_time" class="form-control" value="{{ $post->shooting_time }}">
                 </div>
                 <div class="form-group">
                     <label for="post-wedding_album_id">Select Wedding</label>
@@ -46,6 +46,14 @@
                             @endif
                         @endforeach
                     </select>
+                </div>
+                <div class="form-group form-check">
+                    @if ($post->release_flag)
+                        <input type="checkbox" name="release_flag" id="post-release" class="form-check-input" checked>
+                    @else
+                        <input type="checkbox" name="release_flag" id="post-release" class="form-check-input">
+                    @endif
+                    <label for="post-release"><i class="fas fa-home"></i>Release..OK??</label>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="w-25 form-control btn submit-button"><i class="far fa-images"></i>Putin</button>
