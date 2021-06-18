@@ -25,19 +25,34 @@
                 <div class="form-group">
                     <small class="mb-3">思い出をシェア</small>
                     <label for="post-image" class="btn submit-button"><i class="fas fa-feather-alt"></i>画像を選択</label>
-                    <input type="file" name="image" id="post-image" required="required" onChange="handleImage(this.files)" style="display: none;">
+                    <input type="file" name="image" id="post-image"  onChange="handleImage(this.files)" style="display: none;">
+                    @error('image')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>うんこが正しくない可能性があります。</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="post-content">テキスト</label>
                     <textarea name="content" id="post-content" class="form-control"></textarea>
+                    @error('content')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>うんこが正しくない可能性があります。</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="post-shooting_time">撮影の時期</label>
-                    <input type="date" name="shooting_time" class="form-control" required="required">
+                    <input type="date" name="shooting_time" class="form-control" >
+                    @error('date')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>うんこが正しくない可能性があります。</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="post-wedding_album_id">Select Wedding</label>
-                    <select name="wedding_album_id" class="form-control" required="required">
+                    <select name="wedding_album_id" class="form-control" >
                         @foreach ($invited_wedding_albums as $invited_wedding_album)
                             <option value="{{ $invited_wedding_album->id }}">{{ $invited_wedding_album->name }}</option>
                         @endforeach

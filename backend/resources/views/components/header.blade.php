@@ -2,14 +2,14 @@
     <a href="{{ url('/') }}" class="navbar-brand ml-4">
         {{ config('app.name', 'Laravel') }}
     </a>
-    <form class="form-inline" action="#">
+    {{-- <form class="form-inline" action="#">
         <div class="form-group">
             <input type="text" class="header-serach" >
         </div>
         <div class="input-group">
             <button type="submit" class="btn header-search-button"><i class="fas fa-search header-search-icon"></i></button>
         </div>
-    </form>
+    </form> --}}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
         <span class="navbar-toggler-icon"></span>
     </button>

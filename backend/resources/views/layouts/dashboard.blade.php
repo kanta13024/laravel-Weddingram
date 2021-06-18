@@ -11,6 +11,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" integrity="sha384-haqrlim99xjfMxRP6EWtafs0sB1WKcMdynwZleuUSwJR0mDeRYbhtY+KPMr+JL6f" crossorigin="anonymous"></script>
 
 
@@ -37,10 +38,13 @@
 
             <div class="col">
                 <main class="py-4 mb-5">
+                    @component('components.validation')
+                    @endcomponent
                     @yield('content')
                 </main>
             </div>
         </div>
     </div>
+    @yield('customJS')
 </body>
 </html>

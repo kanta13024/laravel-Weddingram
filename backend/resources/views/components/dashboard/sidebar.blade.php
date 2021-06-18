@@ -29,6 +29,9 @@
     <h2>その他</h2>
     <div class="d-flex flex-column">
         <label class="sidebar-album-label">
+            <a href="/dashboard/folders/1/tasks"><i class="fas fa-business-time"></i>タスク管理</a>
+        </label>
+        <label class="sidebar-album-label">
             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt"></i>{{ __('Logout') }}

@@ -11,8 +11,6 @@
 |
 */
 
-use App\Models\User;
-
 Route::get('/', 'WebController@index');
 
 // マイページ編集用
@@ -54,6 +52,13 @@ Route::get('/dashboard', 'DashboardController@index')->middleware('auth:admins')
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function() {
     Route::get('login', 'Dashboard\Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Dashboard\Auth\LoginController@login')->name('login');
+
+    // タスク管理
+    Route::resource('folders.tasks', 'Dashboard\TaskController')->middleware('auth:admins');
+    Route::post('/folders/{folder}/tasks/create/', 'Dashboard\TaskController@store')->middleware('auth:admins');
+    Route::post('/folders/{folder}/tasks/{task}/edit', 'Dashboard\TaskController@update')->middleware('auth:admins');
+    Route::get('/folders/create', 'Dashboard\FolderController@create')->middleware('auth:admins');
+    Route::post('/folders/create', 'Dashboard\FolderController@store')->middleware('auth:admins');
 
     //式場カラムの作成
     Route::resource('places', 'Dashboard\PlaceController')->middleware('auth:admins');;
